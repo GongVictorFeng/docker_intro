@@ -74,3 +74,18 @@
     * Expose - Informs Docker about the port that the container listens on at runtime
     * Entrypoint - Configure a command that will be run at container launch
   * docker build -t docker-intro/hello-world:v1 .
+
+## Dockerfile - 2 - Build Jar File - Multi Stage
+`FROM maven:3.8.6-openjdk-18-slim AS build`   
+`WORKDIR /home/app`  
+`COPY . /home/app`  
+`RUN mvn -f /home/app/pom.xml clean package`  
+
+`FROM openjdk:18.0-slim`  
+`EXPOSE 5000`  
+`COPY --from=build /home/app/target/*.jar app.jar`  
+`ENTRYPOINT ["sh", "-c", "java -jar /app.jar"]`   
+
+  * The previous step, the jar file is created by Maven install in the local machine
+  * Let build the jar file as part of creation of Docker Image
+  * build does not make use of anything built on the local machine
