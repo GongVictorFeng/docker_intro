@@ -89,3 +89,29 @@
   * The previous step, the jar file is created by Maven install in the local machine
   * Let build the jar file as part of creation of Docker Image
   * build does not make use of anything built on the local machine
+
+## Dockerfile - 3 - Improve Layer Caching
+`FROM maven:3.8.6-openjdk-18-slim AS build`  
+`WORKDIR /home/app`  
+
+`COPY ./pom.xml /home/app/pom.xml`  
+`COPY ./src/main/java/com/docker/hello_word_java/HelloWordJavaApplication.java /home/app/src/main/java/com/docker/hello_word_java/HelloWordJavaApplication.java`  
+
+`RUN mvn -f /home/app/pom.xml clean package`  
+
+`COPY . /home/app`  
+`RUN mvn -f /home/app/pom.xml clean package`  
+
+`FROM openjdk:18.0-slim`  
+`EXPOSE 5000`  
+`COPY --from=build /home/app/target/*.jar app.jar`  
+`ENTRYPOINT ["sh", "-c", "java -jar /app.jar"]`  
+
+  * The previous step - multi-stage approach takes long time for building even with a small code change
+    * because the entire application needs to be rebuilt again
+  * Docker caches every layer and tries to reuse it
+  * use this feature to make build more efficient
+    * copy pom.xml and application file to the image first, cuz it will not be changed often
+    * do clean package to get all dependencies done
+    * copy everything into image
+    * then do clean package again, if there is no changes in the dependency, the previous layers can be reused.
