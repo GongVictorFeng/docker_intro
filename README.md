@@ -62,3 +62,15 @@
   * Docker Repository: Docker images for a specific app (tags are used to differentiate different images)
   * Docker Container: Runtime instance of a docker image
   * Dockerfile: File with instructions to create a Docker image
+
+## Dockerfile - 1 
+`FROM openjdk:18.0-slim`  
+`COPY target/*.jar app.jar`  
+`EXPOSE 5000`  
+`ENTRYPOINT ["java", "-jar", "/app.jar"]`
+  * Dockerfile contains instruction to create Docker images
+    * From - Sets a base image
+    * Copy - Copies new files or directories into image
+    * Expose - Informs Docker about the port that the container listens on at runtime
+    * Entrypoint - Configure a command that will be run at container launch
+  * docker build -t docker-intro/hello-world:v1 .
