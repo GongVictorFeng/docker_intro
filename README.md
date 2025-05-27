@@ -115,3 +115,15 @@
     * do clean package to get all dependencies done
     * copy everything into image
     * then do clean package again, if there is no changes in the dependency, the previous layers can be reused.
+
+## Spring Boot Maven Plugin -Create Docker Image
+  * Spring Boot Maven Plugin: Provides Spring Boot support in Apache Maven
+    * Example: Create executable jar package
+    * Example: Run Spring Boot application
+    * Example: Create a Container Image
+    * Commands:
+      * mvn spring-boot:repackage (create jar or war)
+      * mvn spring-boot:run (Run application)
+      * mvn spring-boot:start (Non-blocking. Use it to run integration tests)
+      * mvn spring-boot:stop (Stop application started with start command)
+      * mvn spring-boot:build-image (Build a container image)
