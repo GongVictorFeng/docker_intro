@@ -127,3 +127,20 @@
       * mvn spring-boot:start (Non-blocking. Use it to run integration tests)
       * mvn spring-boot:stop (Stop application started with start command)
       * mvn spring-boot:build-image (Build a container image)
+
+## Docker Microservice
+    `<plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+            <image>
+                <name>gongvictorfeng/docker-intro-${project.artifactId}:${project.version}</name>
+            </image>
+            <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+        </configuration>
+    </plugin>`  
+
+  * added the above configuration in maven plugin in pom.xml
+  * run command `mvn spring-boot:build-image` to build a container image
+  * see implementation: https://github.com/GongVictorFeng/docker_intro/commit/93825d981b298cf756b00087090509b35bb35032
+
