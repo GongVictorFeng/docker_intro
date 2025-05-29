@@ -144,3 +144,8 @@
   * run command `mvn spring-boot:build-image` to build a container image
   * see implementation: https://github.com/GongVictorFeng/docker_intro/commit/93825d981b298cf756b00087090509b35bb35032
 
+## Docker Compose
+  * It is a tool for defining and running multi-container Docker application
+  * Create a YAML file to configure application services
+  * With a single command, the services can be created and started from the configuration
+  * see implementation: https://github.com/GongVictorFeng/docker_intro/commit/d476b9529ab0c3e61e1bb79655235dfca00071ec
